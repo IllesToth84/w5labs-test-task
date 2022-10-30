@@ -42,7 +42,7 @@ export default {
   computed: {
     ...mapGetters(['newyorkDays', 'newyorkTemp']),
   },
-  name: 'NewYorkChart',
+  name: 'BarChart',
   components: { Bar },
   props: {
     chartId: {

@@ -46,7 +46,7 @@ export default {
     ...mapGetters(['budapestDays', 'budapestTemp']),
   },
 
-  name: 'BudapestChart',
+  name: 'BarChart',
   components: { Bar },
   props: {
     chartId: {

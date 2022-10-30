@@ -42,7 +42,7 @@ export default {
   computed: {
     ...mapGetters(['londonDays', 'londonTemp']),
   },
-  name: 'LondonChart',
+  name: 'BarChart',
   components: { Bar },
   props: {
     chartId: {

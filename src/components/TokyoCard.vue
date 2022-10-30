@@ -42,7 +42,7 @@ export default {
   computed: {
     ...mapGetters(['tokyoDays', 'tokyoTemp']),
   },
-  name: 'TokyoChart',
+  name: 'BarChart',
   components: { Bar },
   props: {
     chartId: {

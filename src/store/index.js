@@ -20,7 +20,7 @@ export default createStore({
         budapestDays: state => {
             // convert the date format
             let budapestDays = state.budapest.daily?.time.map(items => {
-                return items.slice(0, 10).replace(/-/g, '. ');
+                return items.replace(/-/g, '. ');
             });
             return budapestDays;
         },
@@ -43,7 +43,7 @@ export default createStore({
         londonDays: state => {
             // convert the date format
             let londonDays = state.london.daily?.time.map(items => {
-                return items.slice(0, 10).replace(/-/g, '. ');
+                return items.replace(/-/g, '. ');
             });
             return londonDays;
         },
@@ -66,7 +66,7 @@ export default createStore({
         newyorkDays: state => {
             // convert the date format
             let newyorkDays = state.newyork.daily?.time.map(items => {
-                return items.slice(0, 10).replace(/-/g, '. ');
+                return items.replace(/-/g, '. ');
             });
             return newyorkDays;
         },
@@ -89,7 +89,7 @@ export default createStore({
         tokyoDays: state => {
             // convert the date format
             let tokyoDays = state.tokyo.daily?.time.map(items => {
-                return items.slice(0, 10).replace(/-/g, '. ');
+                return items.replace(/-/g, '. ');
             });
             return tokyoDays;
         },
