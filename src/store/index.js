@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default createStore({
 
-    // STATE 
+   /****************************************    STATE    *************************************/
     state: {
         budapest: {},
         london: {},
@@ -13,10 +13,11 @@ export default createStore({
         tokyo: {},
     },
 
-    // GETTERS
-    getters: {
 
-        // budapest
+   /****************************************    GETTERS    *************************************/
+   getters: {
+
+        /**************   BUDAPEST  ****************/
         budapestDays: state => {
             // convert the date format
             let budapestDays = state.budapest.daily?.time.map(items => {
@@ -33,13 +34,18 @@ export default createStore({
 
             if (bpTempMin && bpTempMax) {
                 for (let i = 0; i < bpTempMin.length; i++) {
-                    bpTempAvg.push(Math.round((bpTempMin[i] + bpTempMax[i]) / 2));
+                    bpTempAvg.push((Math.round((bpTempMin[i] + bpTempMax[i]) / 2)));
                 };
             }
             return bpTempAvg;
         },
 
-        // london
+        budapestRain: state => {
+            return state.budapest.daily?.rain_sum;
+        },
+
+
+        /**************  LONDON  ****************/
         londonDays: state => {
             // convert the date format
             let londonDays = state.london.daily?.time.map(items => {
@@ -62,7 +68,12 @@ export default createStore({
             return lndnTempAvg;
         },
 
-        // New York
+        londonRain: state => {
+            return state.london.daily?.rain_sum;
+        },
+
+
+        /**************   NEW YORK  ****************/
         newyorkDays: state => {
             // convert the date format
             let newyorkDays = state.newyork.daily?.time.map(items => {
@@ -85,7 +96,12 @@ export default createStore({
             return nyTempAvg;
         },
 
-        // Tokyo
+        newyorkRain: state => {
+            return state.newyork.daily?.rain_sum;
+        },
+
+
+        /**************   TOKYO  ****************/
         tokyoDays: state => {
             // convert the date format
             let tokyoDays = state.tokyo.daily?.time.map(items => {
@@ -98,6 +114,7 @@ export default createStore({
             // calculate the average from the daily minimum and maximum temperature
             let tkyTempMin = state.tokyo.daily?.temperature_2m_min;
             let tkyTempMax = state.tokyo.daily?.temperature_2m_max;
+
             let tkyTempAvg = [];
 
             if (tkyTempMin && tkyTempMax) {
@@ -107,9 +124,43 @@ export default createStore({
             }
             return tkyTempAvg;
         },
+
+        tokyoRain: state => {
+            return state.tokyo.daily?.rain_sum;
+        },
     },
 
-    // MUTATIONS 
+
+   /****************************************    ACTIONS   *************************************/
+   actions: {
+    fetchBudapest() {
+        axios('https://api.open-meteo.com/v1/forecast?latitude=47.4984&longitude=19.0408&timezone=Europe/Budapest&daily=rain_sum,temperature_2m_max,temperature_2m_min&daily_units')
+            .then(response => {
+                this.commit('changeBudapest', response.data)
+            })
+    },
+    fetchLondon() {
+        axios('https://api.open-meteo.com/v1/forecast?latitude=51.5002&longitude=-0.1262&timezone=Etc/Greenwich&daily=rain_sum,temperature_2m_max,temperature_2m_min&daily_units')
+            .then(response => {
+                this.commit('changeLondon', response.data)
+            })
+    },
+    fetchNewYork() {
+        axios('https://api.open-meteo.com/v1/forecast?latitude=40.71&longitude=-74.01&timezone=America/New_York&daily=rain_sum,temperature_2m_max,temperature_2m_min&daily_units')
+            .then(response => {
+                this.commit('changeNewYork', response.data)
+            })
+    },
+    fetchTokyo() {
+        axios('https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&timezone=Asia/Tokyo&daily=rain_sum,temperature_2m_max,temperature_2m_min&daily_units')
+            .then(response => {
+                this.commit('changeTokyo', response.data)
+            })
+    },
+},
+
+
+   /****************************************    MUTATIONS    *************************************/
     mutations: {
         changeBudapest(state, data) {
             state.budapest = data;
@@ -125,33 +176,6 @@ export default createStore({
         },
     },
 
-    // ACTIONS 
-    actions: {
-        fetchBudapest() {
-            axios('https://api.open-meteo.com/v1/forecast?latitude=47.4984&longitude=19.0408&timezone=Europe/Budapest&daily=rain_sum,temperature_2m_max,temperature_2m_min')
-                .then(response => {
-                    this.commit('changeBudapest', response.data)
-                })
-        },
-        fetchLondon() {
-            axios('https://api.open-meteo.com/v1/forecast?latitude=51.5002&longitude=-0.1262&timezone=Etc/Greenwich&daily=rain_sum,temperature_2m_max,temperature_2m_min')
-                .then(response => {
-                    this.commit('changeLondon', response.data)
-                })
-        },
-        fetchNewYork() {
-            axios('https://api.open-meteo.com/v1/forecast?latitude=40.71&longitude=-74.01&timezone=America/New_York&daily=rain_sum,temperature_2m_max,temperature_2m_min')
-                .then(response => {
-                    this.commit('changeNewYork', response.data)
-                })
-        },
-        fetchTokyo() {
-            axios('https://api.open-meteo.com/v1/forecast?latitude=35.6785&longitude=139.6823&timezone=Asia/Tokyo&daily=rain_sum,temperature_2m_max,temperature_2m_min')
-                .then(response => {
-                    this.commit('changeTokyo', response.data)
-                })
-        },
-    },
 
     modules: {}
-})
+});

@@ -1,18 +1,15 @@
 <template>
-  <div class="city-card">
-    <h2 class="city-card-title">TOKYO</h2>
-    <Bar
-      :chart-options="chartOptions"
-      :chart-data="chartData"
-      :chart-id="chartId"
-      :dataset-id-key="datasetIdKey"
-      :plugins="plugins"
-      :css-classes="cssClasses"
-      :styles="styles"
-      :width="width"
-      :height="height"
-    />
-  </div>
+  <Bar
+    :chart-options="chartOptions"
+    :chart-data="chartData"
+    :chart-id="chartId"
+    :dataset-id-key="datasetIdKey"
+    :plugins="plugins"
+    :css-classes="cssClasses"
+    :styles="styles"
+    :width="width"
+    :height="height"
+  />
 </template>
 
 <script>
@@ -39,9 +36,6 @@ ChartJS.register(
 );
 
 export default {
-  computed: {
-    ...mapGetters(['tokyoDays', 'tokyoTemp']),
-  },
   name: 'BarChart',
   components: { Bar },
   props: {
@@ -74,13 +68,18 @@ export default {
       default: () => {},
     },
   },
+
+  computed: {
+    ...mapGetters(['tokyoDays', 'tokyoTemp']),
+  },
+
   data() {
     return {
       chartData: {
         labels: this.$store.getters.tokyoDays,
         datasets: [
           {
-            label: 'Temperature in Celcius',
+            label: 'Temperature in °C',
             backgroundColor: 'orange',
             data: this.$store.getters.tokyoTemp,
           },

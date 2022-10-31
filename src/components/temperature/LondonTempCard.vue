@@ -1,21 +1,15 @@
 <template>
-  <div class="city-card">
-    <h2 class="city-card-title">BUDAPEST</h2>
-    <Bar
-      :chart-options="chartOptions"
-      :chart-data="chartData"
-      :chart-id="chartId"
-      :dataset-id-key="datasetIdKey"
-      :plugins="plugins"
-      :css-classes="cssClasses"
-      :styles="styles"
-      :width="width"
-      :height="height"
-    />
-  </div>
-
-  <!-- {{ $store.getters.budapestDays }}
-  {{ $store.getters.budapestTemp }} -->
+  <Bar
+    :chart-options="chartOptions"
+    :chart-data="chartData"
+    :chart-id="chartId"
+    :dataset-id-key="datasetIdKey"
+    :plugins="plugins"
+    :css-classes="cssClasses"
+    :styles="styles"
+    :width="width"
+    :height="height"
+  />
 </template>
 
 <script>
@@ -42,10 +36,6 @@ ChartJS.register(
 );
 
 export default {
-  computed: {
-    ...mapGetters(['budapestDays', 'budapestTemp']),
-  },
-
   name: 'BarChart',
   components: { Bar },
   props: {
@@ -79,15 +69,19 @@ export default {
     },
   },
 
+  computed: {
+    ...mapGetters(['londonDays', 'londonTemp']),
+  },
+
   data() {
     return {
       chartData: {
-        labels: this.$store.getters.budapestDays,
+        labels: this.$store.getters.londonDays,
         datasets: [
           {
-            label: 'Temperature in Celcius',
+            label: 'Temperature in °C',
             backgroundColor: 'orange',
-            data: this.$store.getters.budapestTemp,
+            data: this.$store.getters.londonTemp,
           },
         ],
       },

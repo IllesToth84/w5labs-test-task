@@ -1,17 +1,33 @@
 <template>
-  <div class="city-card">
-    <h2 class="city-card-title">NEW YORK</h2>
-    <Bar
-      :chart-options="chartOptions"
-      :chart-data="chartData"
-      :chart-id="chartId"
-      :dataset-id-key="datasetIdKey"
-      :plugins="plugins"
-      :css-classes="cssClasses"
-      :styles="styles"
-      :width="width"
-      :height="height"
-    />
+  <div class="modal-overlay">
+    <div class="modal p-5 lg:p-8 flex flex-col gap-10">
+      <div class="flex justify-between items-center">
+        <h2
+          class="text-card-heading text-chelsea-blue text-center font-extrabold"
+        >
+          LONDON
+        </h2>
+
+        <!-- modal open button  -->
+        <button
+          class="bg-primary-orange py-1 px-3 text-white rounded-md flex justify-center items-center"
+          @click="$emit('close-modal')"
+        >
+          X
+        </button>
+      </div>
+      <Bar
+        :chart-options="chartOptions"
+        :chart-data="chartData"
+        :chart-id="chartId"
+        :dataset-id-key="datasetIdKey"
+        :plugins="plugins"
+        :css-classes="cssClasses"
+        :styles="styles"
+        :width="width"
+        :height="height"
+      />
+    </div>
   </div>
 </template>
 
@@ -40,7 +56,7 @@ ChartJS.register(
 
 export default {
   computed: {
-    ...mapGetters(['newyorkDays', 'newyorkTemp']),
+    ...mapGetters(['londonDays', 'londonRain']),
   },
   name: 'BarChart',
   components: { Bar },
@@ -77,12 +93,12 @@ export default {
   data() {
     return {
       chartData: {
-        labels: this.$store.getters.newyorkDays,
+        labels: this.$store.getters.londonDays,
         datasets: [
           {
-            label: 'Temperature in Celcius',
-            backgroundColor: 'orange',
-            data: this.$store.getters.newyorkTemp,
+            label: 'Rain in mm',
+            backgroundColor: '#034694',
+            data: this.$store.getters.londonRain,
           },
         ],
       },
