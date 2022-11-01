@@ -70,12 +70,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['tokyoDays', 'tokyoTemp']),
-  },
-
-  data() {
-    return {
-      chartData: {
+    ...mapGetters(['tokyoDays', 'tokyoTemp']), //ezt nem használod sehol sem, törölhető
+    chartData() {
+      return {
         labels: this.$store.getters.tokyoDays,
         datasets: [
           {
@@ -84,11 +81,15 @@ export default {
             data: this.$store.getters.tokyoTemp,
           },
         ],
-      },
-      chartOptions: {
-        responsive: true,
-      },
-    };
+      };
+    },
+    chartOptions: {
+      responsive: true,
+    },
+  },
+
+  data() {
+    return {};
   },
 };
 </script>

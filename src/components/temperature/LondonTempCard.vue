@@ -70,12 +70,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['londonDays', 'londonTemp']),
-  },
-
-  data() {
-    return {
-      chartData: {
+    ...mapGetters(['londonDays', 'londonTemp']), //ezt nem használod sehol sem, törölhető
+    chartData() {
+      return {
         labels: this.$store.getters.londonDays,
         datasets: [
           {
@@ -84,11 +81,15 @@ export default {
             data: this.$store.getters.londonTemp,
           },
         ],
-      },
-      chartOptions: {
-        responsive: true,
-      },
-    };
+      };
+    },
+    chartOptions: {
+      responsive: true,
+    },
+  },
+
+  data() {
+    return {};
   },
 };
 </script>

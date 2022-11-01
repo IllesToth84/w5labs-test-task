@@ -55,10 +55,6 @@ ChartJS.register(
 );
 
 export default {
-  computed: {
-    ...mapGetters(['budapestDays', 'budapestRain']),
-  },
-
   name: 'BarChart',
   components: { Bar },
   props: {
@@ -92,9 +88,10 @@ export default {
     },
   },
 
-  data() {
-    return {
-      chartData: {
+  computed: {
+    ...mapGetters(['budapestDays', 'budapestRain']), //ezt nem használod sehol sem, törölhető
+    chartData() {
+      return {
         labels: this.$store.getters.budapestDays,
         datasets: [
           {
@@ -103,11 +100,15 @@ export default {
             data: this.$store.getters.budapestRain,
           },
         ],
-      },
-      chartOptions: {
-        responsive: true,
-      },
-    };
+      };
+    },
+    chartOptions: {
+      responsive: true,
+    },
+  },
+
+  data() {
+    return {};
   },
 };
 </script>

@@ -70,12 +70,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['budapestDays', 'budapestTemp']),
-  },
-
-  data() {
-    return {
-      chartData: {
+    ...mapGetters(['budapestDays', 'budapestTemp']), //ezt nem használod sehol sem, törölhető
+    chartData() {
+      return {
         labels: this.$store.getters.budapestDays,
         datasets: [
           {
@@ -84,11 +81,15 @@ export default {
             data: this.$store.getters.budapestTemp,
           },
         ],
-      },
-      chartOptions: {
-        responsive: true,
-      },
-    };
+      };
+    },
+    chartOptions: {
+      responsive: true,
+    },
+  },
+
+  data() {
+    return {};
   },
 };
 </script>

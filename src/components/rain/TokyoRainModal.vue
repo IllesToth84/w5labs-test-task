@@ -55,9 +55,6 @@ ChartJS.register(
 );
 
 export default {
-  computed: {
-    ...mapGetters(['tokyoDays', 'tokyoRain']),
-  },
   name: 'BarChart',
   components: { Bar },
   props: {
@@ -90,9 +87,11 @@ export default {
       default: () => {},
     },
   },
-  data() {
-    return {
-      chartData: {
+
+  computed: {
+    ...mapGetters(['tokyoDays', 'tokyoRain']), //ezt nem használod sehol sem, törölhető
+    chartData() {
+      return {
         labels: this.$store.getters.tokyoDays,
         datasets: [
           {
@@ -101,11 +100,15 @@ export default {
             data: this.$store.getters.tokyoRain,
           },
         ],
-      },
-      chartOptions: {
-        responsive: true,
-      },
-    };
+      };
+    },
+    chartOptions: {
+      responsive: true,
+    },
+  },
+
+  data() {
+    return {};
   },
 };
 </script>

@@ -70,12 +70,9 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['newyorkDays', 'newyorkTemp']),
-  },
-
-  data() {
-    return {
-      chartData: {
+    ...mapGetters(['newyorkDays', 'newyorkTemp']), //ezt nem használod sehol sem, törölhető
+    chartData() {
+      return {
         labels: this.$store.getters.newyorkDays,
         datasets: [
           {
@@ -84,11 +81,15 @@ export default {
             data: this.$store.getters.newyorkTemp,
           },
         ],
-      },
-      chartOptions: {
-        responsive: true,
-      },
-    };
+      };
+    },
+    chartOptions: {
+      responsive: true,
+    },
+  },
+
+  data() {
+    return {};
   },
 };
 </script>
