@@ -8,6 +8,18 @@
     </h1>
 
     <!----------------------------------------- cards container   -------------------------------------------->
+    <h2>Budapest</h2>
+    <TemperatureCard
+      :labels="$store.getters.budapestDays"
+      :data="$store.getters.budapestTemp"
+    />
+    <h2>London</h2>
+    <TemperatureCard
+      :labels="$store.getters.londonDays"
+      :data="$store.getters.londonTemp"
+    />
+    <hr />
+
     <div
       class="grid grid-cols-1 lg:grid-cols-2 lg:grid-rows-2 gap-6 py-8 px-4 lg:px-20"
     >
@@ -155,74 +167,82 @@
 </template>
 
 <script>
-// @ is an alias to /src
+  // @ is an alias to /src
 
-export default {
-  name: 'HomeView',
+  export default {
+    name: 'HomeView',
 
-  data: () => {
-    return {
-      showBpModal: false,
-      showLndnModal: false,
-      showNyModal: false,
-      showTkyModal: false,
-    };
-  },
+    data: () => {
+      return {
+        showBpModal: false,
+        showLndnModal: false,
+        showNyModal: false,
+        showTkyModal: false,
+      }
+    },
 
-  components: {
-    BudapestTempCard: require('@/components/temperature/BudapestTempCard.vue')
-      .default,
-    LondonTempCard: require('@/components/temperature/LondonTempCard.vue')
-      .default,
-    NyTempCard: require('@/components/temperature/NyTempCard.vue').default,
-    TokyoTempCard: require('@/components/temperature/TokyoTempCard.vue')
-      .default,
-    BpestRainModal: require('@/components/rain/BpestRainModal.vue').default,
-    LondonRainModal: require('@/components/rain/LondonRainModal.vue').default,
-    NyRainModal: require('@/components/rain/NyRainModal.vue').default,
-    TokyoRainModal: require('@/components/rain/TokyoRainModal.vue').default,
-  },
+    components: {
+      TemperatureCard: require('@/components/temperature/TemperatureCard.vue')
+        .default,
+      LondonTempCard: require('@/components/temperature/LondonTempCard.vue')
+        .default,
+      BudapestTempCard: require('@/components/temperature/BudapestTempCard.vue')
+        .default,
+      LondonTempCard: require('@/components/temperature/LondonTempCard.vue')
+        .default,
+      NyTempCard: require('@/components/temperature/NyTempCard.vue').default,
+      TokyoTempCard: require('@/components/temperature/TokyoTempCard.vue')
+        .default,
+      BpestRainModal: require('@/components/rain/BpestRainModal.vue').default,
+      LondonRainModal: require('@/components/rain/LondonRainModal.vue').default,
+      NyRainModal: require('@/components/rain/NyRainModal.vue').default,
+      TokyoRainModal: require('@/components/rain/TokyoRainModal.vue').default,
+    },
 
-  mounted() {
-    this.$store.dispatch('fetchBudapest');
-    this.$store.dispatch('fetchLondon');
-    this.$store.dispatch('fetchNewYork');
-    this.$store.dispatch('fetchTokyo');
-  },
-};
+    mounted() {
+      this.$store.dispatch('fetchBudapest')
+      this.$store.dispatch('fetchLondon')
+      this.$store.dispatch('fetchNewYork')
+      this.$store.dispatch('fetchTokyo')
+    },
+  }
 </script>
 
 <style lang="scss">
-#app-title {
-  font-family: 'Archivo Black', sans-serif;
-}
+  #app-title {
+    font-family: 'Archivo Black', sans-serif;
+  }
 
-canvas {
-  max-height: 25vh;
-}
+  canvas {
+    max-height: 25vh;
+  }
 
-.modal-overlay {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000000da;
-  .modal {
-    text-align: center;
-    background-color: white;
-    width: 70vw;
-    @media (max-width: 992px) {
-      width: 90vw;
-    }
-    height: auto;
-    border-radius: 1rem;
-    canvas {
-      max-height: 50vh;
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000da;
+    .modal {
+      text-align: center;
+      background-color: white;
+      width: 70vw;
+      @media (max-width: 992px) {
+        width: 90vw;
+      }
+      height: auto;
+      border-radius: 1rem;
+      canvas {
+        max-height: 50vh;
+      }
     }
   }
-}
+
+  hr {
+    margin: 2rem;
+  }
 </style>
